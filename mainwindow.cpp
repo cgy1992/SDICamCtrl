@@ -4,6 +4,7 @@
 
 #include <QByteArray>
 #include <QDebug>
+#include <QMessageBox>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -11,25 +12,9 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     m_haveCtrlRes = false;
+    m_serialPort = NULL;
 
-    m_serialPort = new QSerialPort(this);
-    //设置串口名
-    m_serialPort->setPortName("com9");
-    //打开串口
-    if(!m_serialPort->open(QIODevice::ReadWrite))
-        qDebug() << "failed to open serial port";
-    //设置波特率
-    m_serialPort->setBaudRate(QSerialPort::Baud9600);
-    //设置数据位数
-    m_serialPort->setDataBits(QSerialPort::Data8);
-    //设置奇偶校验
-    m_serialPort->setParity(QSerialPort::NoParity);
-    //设置停止位
-    m_serialPort->setStopBits(QSerialPort::OneStop);
-    //设置流控制
-    m_serialPort->setFlowControl(QSerialPort::NoFlowControl);
-    connect(m_serialPort, &QSerialPort::readyRead, this, &MainWindow::readData);
-    ui->labelState->setText(QStringLiteral("已就绪"));
+    ui->labelState->setText(QStringLiteral("串口未打开"));
 }
 
 MainWindow::~MainWindow()
@@ -187,4 +172,39 @@ void MainWindow::on_pushButton_0c_clicked()
     m_ctrlCmd.keyboard = 0x0c;
     m_ctrlCmd.pack();
     sendCmd();
+}
+
+void MainWindow::on_pushButtonOpenSerial_clicked()
+{
+    if(m_serialPort)
+        delete m_serialPort;
+
+    QString serialPortName = ui->lineEditSerialPort->text();
+
+    m_serialPort = new QSerialPort(this);
+    //设置串口名
+    m_serialPort->setPortName(serialPortName);
+    //打开串口
+    if(!m_serialPort->open(QIODevice::ReadWrite))
+    {
+        qDebug() << "failed to open serial port";
+        QMessageBox::information(this, "error", "cannot open the serial prort: " + serialPortName);
+        return;
+    }
+    else
+    {
+        QMessageBox::information(this, "information", "serial prort: " + serialPortName + " is opened");
+    }
+    //设置波特率
+    m_serialPort->setBaudRate(QSerialPort::Baud9600);
+    //设置数据位数
+    m_serialPort->setDataBits(QSerialPort::Data8);
+    //设置奇偶校验
+    m_serialPort->setParity(QSerialPort::NoParity);
+    //设置停止位
+    m_serialPort->setStopBits(QSerialPort::OneStop);
+    //设置流控制
+    m_serialPort->setFlowControl(QSerialPort::NoFlowControl);
+    connect(m_serialPort, &QSerialPort::readyRead, this, &MainWindow::readData);
+    ui->labelState->setText(QStringLiteral("串口") + serialPortName + QStringLiteral("已打开"));
 }

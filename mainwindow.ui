@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>477</width>
-    <height>445</height>
+    <height>472</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -20,7 +20,7 @@
       <x>10</x>
       <y>10</y>
       <width>211</width>
-      <height>341</height>
+      <height>351</height>
      </rect>
     </property>
     <property name="title">
@@ -276,9 +276,9 @@
     <property name="geometry">
      <rect>
       <x>230</x>
-      <y>10</y>
+      <y>60</y>
       <width>231</width>
-      <height>341</height>
+      <height>301</height>
      </rect>
     </property>
     <property name="title">
@@ -451,7 +451,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>360</y>
+      <y>370</y>
       <width>451</width>
       <height>51</height>
      </rect>
@@ -470,6 +470,48 @@
      </property>
      <property name="text">
       <string/>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QGroupBox" name="groupBox_4">
+    <property name="geometry">
+     <rect>
+      <x>230</x>
+      <y>9</y>
+      <width>231</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>串口</string>
+    </property>
+    <widget class="QLineEdit" name="lineEditSerialPort">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>20</y>
+       <width>91</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>COM1</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButtonOpenSerial">
+     <property name="geometry">
+      <rect>
+       <x>120</x>
+       <y>15</y>
+       <width>101</width>
+       <height>30</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>打开</string>
      </property>
     </widget>
    </widget>

@@ -48,6 +48,8 @@ private slots:
 
     void on_pushButton_0c_clicked();
 
+    void on_pushButtonOpenSerial_clicked();
+
 private:
     Ui::MainWindow *ui;
     QSerialPort *m_serialPort;
